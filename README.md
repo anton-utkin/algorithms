@@ -11,6 +11,7 @@ solutions in different projects in case of need.
 Current list of solved problems:
 + Longest Common Subsequence (LCS) 
 + Merge Sort
++ Quick Sort
 + Breadth First Search in Graph
 + Depth First Search in Graph
 + Dijkstra algorithm
