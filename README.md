@@ -10,3 +10,7 @@ solutions in different projects in case of need.
 
 Current list of solved problems:
 + Longest Common Subsequence (LCS) 
++ Merge Sort
++ Breadth First Search in Graph
++ Depth First Search in Graph
++ Min Heap data structure
