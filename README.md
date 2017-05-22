@@ -13,4 +13,5 @@ Current list of solved problems:
 + Merge Sort
 + Breadth First Search in Graph
 + Depth First Search in Graph
++ Dijkstra algorithm
 + Min Heap data structure

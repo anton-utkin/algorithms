@@ -91,8 +91,6 @@ public class GraphUtils {
         mGraphData.get(vertex).color = Color.Black;
     }
 
-
-
     public static boolean hasRoute (int src, int dest) {
         BFS(src);
         VertexData data = mGraphData.get(dest);

@@ -299,4 +299,54 @@ public class GraphUtilsTest {
         assertEquals(GraphUtils.hasRoute(2, 7), true);
         assertEquals(GraphUtils.hasRoute(7, 2), true);
     }
+
+    // *1 ----\
+    // |       \  250
+    // | 250    \
+    // |         \
+    // 0 * ----- * 2 ----- *3
+    //     1000        250
+    @Test
+    public void testF() {
+        ArrayList<LinkedList<WeightedGraphUtils.EdgeData>> graph = new ArrayList<LinkedList<WeightedGraphUtils.EdgeData>>();
+        while(graph.size() < 4) graph.add(null);
+        LinkedList<WeightedGraphUtils.EdgeData> adjV0 = new LinkedList<WeightedGraphUtils.EdgeData>();
+        adjV0.add(new WeightedGraphUtils.EdgeData(1, 250));
+        adjV0.add(new WeightedGraphUtils.EdgeData(2, 1000));
+        graph.set(0, adjV0);
+        LinkedList<WeightedGraphUtils.EdgeData> adjV1 = new LinkedList<WeightedGraphUtils.EdgeData>();
+        adjV1.add(new WeightedGraphUtils.EdgeData(0, 250));
+        adjV1.add(new WeightedGraphUtils.EdgeData(2, 250));
+        graph.set(1, adjV1);
+        LinkedList<WeightedGraphUtils.EdgeData> adjV2 = new LinkedList<WeightedGraphUtils.EdgeData>();
+        adjV2.add(new WeightedGraphUtils.EdgeData(1, 250));
+        adjV2.add(new WeightedGraphUtils.EdgeData(0, 1000));
+        adjV2.add(new WeightedGraphUtils.EdgeData(3, 250));
+        graph.set(2, adjV2);
+
+        LinkedList<WeightedGraphUtils.EdgeData> adjV3 = new LinkedList<WeightedGraphUtils.EdgeData>();
+        adjV3.add(new WeightedGraphUtils.EdgeData(2, 250));
+        graph.set(3, adjV3);
+        WeightedGraphUtils.setGraph(graph);
+        WeightedGraphUtils.dijkstra(0);
+
+        ArrayList<WeightedGraphUtils.VertexData> data = WeightedGraphUtils.getGraphData();
+
+        assertEquals(data.size(), 4);
+        assertEquals(data.get(0).parent, null);
+        assertEquals(data.get(0).distance, 0);
+        assertEquals(data.get(0).index, 0);
+
+        assertEquals(data.get(1).parent, data.get(0));
+        assertEquals(data.get(1).index, 1);
+        assertEquals(data.get(1).distance, 250);
+
+        assertEquals(data.get(2).parent, data.get(1));
+        assertEquals(data.get(2).index, 2);
+        assertEquals(data.get(2).distance, 500);
+
+        assertEquals(data.get(3).parent, data.get(2));
+        assertEquals(data.get(3).index, 3);
+        assertEquals(data.get(3).distance, 750);
+    }
 }
