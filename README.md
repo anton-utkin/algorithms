@@ -9,7 +9,8 @@ solutions in different projects in case of need.
 
 
 Current list of solved problems:
-+ Longest Common Subsequence (LCS) 
++ Longest Common Subsequence (LCS)
++ Heap Sort 
 + Merge Sort
 + Quick Sort
 + Breadth First Search in Graph

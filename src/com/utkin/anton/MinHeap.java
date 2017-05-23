@@ -4,20 +4,20 @@ public class MinHeap<T extends Comparable> {
 
     private static int INITIAL_ARRAY_SIZE = 1;
 
-    private Object[] array = new Object[INITIAL_ARRAY_SIZE];
+    private Comparable[] array = new Comparable[INITIAL_ARRAY_SIZE];
     private int size = 0;
 
     private void resize(){
-        Object[] tmp = array;
-        array = new Object[2 * array.length];
+        Comparable[] tmp = array;
+        array = new Comparable[2 * array.length];
         System.arraycopy( tmp, 0, array, 0, tmp.length );
     }
 
     private void siftUp(int pos){
         if(pos - 1 == 0) return;
         int parent = pos / 2;
-        if(((T) array[pos - 1]).compareTo((T)array[parent - 1]) == -1){
-            Object tmp = array[parent - 1];
+        if(array[pos - 1].compareTo(array[parent - 1]) == -1){
+            Comparable tmp = array[parent - 1];
             array[parent - 1] = array[pos - 1];
             array[pos - 1] = tmp;
             siftUp(parent);
@@ -35,20 +35,28 @@ public class MinHeap<T extends Comparable> {
         }else if(right > size){
             minPos = left;
         }else {
-            minPos = ((T)array[left - 1]).compareTo(array[right - 1]) == -1 ? left : right;
+            minPos = array[left - 1].compareTo(array[right - 1]) == -1 ? left : right;
         }
 
-        if(((T) array[pos - 1]).compareTo(array[minPos - 1]) == 1) {
-            Object tmp = array[pos - 1];
+        if(array[pos - 1].compareTo(array[minPos - 1]) == 1) {
+            Comparable tmp = array[pos - 1];
             array[pos - 1] = array[minPos - 1];
             array[minPos - 1] = tmp;
             siftDown(minPos);
         }
     }
 
+    private void reverse(){
+        for(int i = 0; i < array.length / 2; ++i){
+            Comparable tmp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = tmp;
+        }
+    }
+
     public static <T extends Comparable> MinHeap<T> build(T[] array){
         MinHeap<T> heap = new MinHeap<T>();
-        heap.array = new Object[array.length];
+        heap.array = new Comparable[array.length];
         heap.size = array.length;
         System.arraycopy( array, 0, heap.array, 0, array.length );
 
@@ -70,7 +78,7 @@ public class MinHeap<T extends Comparable> {
 
     public void decreaseKey(int pos, T newValue){
         if(pos > size || pos < 0) return;
-        if(((T)newValue).compareTo(array[pos - 1]) >= 0) return;
+        if(newValue.compareTo(array[pos - 1]) >= 0) return;
         array[pos - 1] = newValue;
         siftUp(pos);
     }
@@ -87,5 +95,17 @@ public class MinHeap<T extends Comparable> {
         size--;
         siftDown(1);
         return tmp;
+    }
+
+    public T[] sort(){
+        while(size > 1) {
+            Comparable tmp = array[size - 1];
+            array[size - 1] = array[0];
+            array[0] = tmp;
+            size--;
+            siftDown(1);
+        }
+        reverse();
+        return (T[])array;
     }
 }

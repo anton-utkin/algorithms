@@ -9,12 +9,16 @@ import static org.junit.Assert.assertTrue;
 public class SortTest {
 
     void checkTestCase(Integer[] array, Integer[] expectedResult){
-        Integer[] arrayCopy = new Integer[array.length];
-        System.arraycopy(array, 0, arrayCopy, 0, array.length);
+        Integer[] arrayA = new Integer[array.length];
+        System.arraycopy(array, 0, arrayA, 0, array.length);
+        Integer[] arrayB = new Integer[array.length];
+        System.arraycopy(array, 0, arrayB, 0, array.length);
         Sort.mergeSort(array);
         assertTrue(null, Arrays.equals(array, expectedResult));
-        Sort.quickSort(arrayCopy);
-        assertTrue(null, Arrays.equals(arrayCopy, expectedResult));
+        Sort.quickSort(arrayA);
+        assertTrue(null, Arrays.equals(arrayA, expectedResult));
+        Sort.heapSort(arrayB);
+        assertTrue(null, Arrays.equals(arrayB, expectedResult));
     }
 
     @Test
